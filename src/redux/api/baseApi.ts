@@ -1,7 +1,12 @@
+// src/api/baseApi.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "BACKEND API URL" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://stridex-server.vercel.app/api",
+  }),
   endpoints: () => ({}),
 });
+
+export default baseApi;
