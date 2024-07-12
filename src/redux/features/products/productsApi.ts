@@ -9,8 +9,15 @@ const productsApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAllProductsQuery: builder.query<TApiResponse, void>({
+      query: () => ({
+        url: "/products",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetFeaturedProductsQuery } = productsApi;
+export const { useGetFeaturedProductsQuery, useGetAllProductsQuery } =
+  productsApi;
 export default productsApi;
