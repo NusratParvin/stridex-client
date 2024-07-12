@@ -1,23 +1,25 @@
+// src/redux/features/products/productsApi.ts
 import baseApi from "@/redux/api/baseApi";
 import { TApiResponse } from "@/types";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getFeaturedProducts: builder.query<TApiResponse, void>({
+    getAllProducts: builder.query<TApiResponse, void>({
       query: () => ({
         url: "/products",
         method: "GET",
       }),
+      providesTags: ["Products"],
     }),
-    getAllProductsQuery: builder.query<TApiResponse, void>({
-      query: () => ({
-        url: "/products",
+    getProductById: builder.query({
+      query: (id) => ({
+        url: `/products/${id}`,
         method: "GET",
       }),
+      providesTags: ["Products"],
     }),
   }),
 });
 
-export const { useGetFeaturedProductsQuery, useGetAllProductsQuery } =
-  productsApi;
+export const { useGetAllProductsQuery, useGetProductByIdQuery } = productsApi;
 export default productsApi;

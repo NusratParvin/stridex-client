@@ -17,5 +17,5 @@ export type TApiResponse = {
   success: boolean;
   statusCode: number;
   message: string;
-  data: TProduct[];
+  data: TProduct[] | TProduct;
 };

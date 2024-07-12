@@ -9,7 +9,9 @@ import { WhoAreWe } from "../components/pages/AboutUs/WhoAreWe";
 import { OurTeam } from "../components/pages/AboutUs/OurTeam";
 import { StoreInformation } from "../components/pages/AboutUs/StoreInformation";
 import ContactUs from "../components/pages/Homepage/ContactUs";
-import AllProducts from "../components/pages/AllProducts";
+import AllProducts from "@/components/pages/AllProducts/AllProducts";
+import ProductDetails from "@/components/pages/AllProducts/ProductDetails";
+import Cart from "@/components/pages/cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -46,18 +48,18 @@ const router = createBrowserRouter([
         path: "allProducts",
         element: <AllProducts />,
       },
-      // {
-      //   path: "product/:id",
-      //   element: <SingleProduct />,
-      // },
+      {
+        path: "products/:id",
+        element: <ProductDetails />,
+      },
       // {
       //   path: "manage",
       //   element: <ManageProducts />,
       // },
-      // {
-      //   path: "cart",
-      //   element: <Cart />,
-      // },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
       // {
       //   path: "checkout",
       //   element: <Checkout />,

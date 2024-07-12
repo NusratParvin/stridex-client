@@ -6,6 +6,8 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://stridex-server.vercel.app/api",
   }),
+  tagTypes: ["Products"],
+
   endpoints: () => ({}),
 });
 

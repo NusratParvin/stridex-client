@@ -233,7 +233,7 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { TProduct } from "@/types";
-import { useGetFeaturedProductsQuery } from "@/redux/features/products/productsApi";
+import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
 import SingleProduct from "./SingleProduct";
 import { Spinner } from "@/components/ui/spinner";
 import AlertDestructive from "@/components/ui/alert";
@@ -256,7 +256,7 @@ const AllProducts = () => {
   });
   const [sortOrder, setSortOrder] = useState("");
 
-  const { data, error, isLoading } = useGetFeaturedProductsQuery();
+  const { data, error, isLoading } = useGetAllProductsQuery();
   const products: TProduct[] = data?.data || [];
 
   useEffect(() => {

@@ -1,9 +1,9 @@
-import { useGetFeaturedProductsQuery } from "@/redux/features/products/productsApi";
+import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
 import SingleProductCard from "./SingleProductCard";
 import { TProduct } from "@/types";
 
 const FeaturedProducts = () => {
-  const { data, error, isLoading } = useGetFeaturedProductsQuery();
+  const { data, error, isLoading } = useGetAllProductsQuery();
 
   console.log(data);
   const products: TProduct[] = data?.data || [];
