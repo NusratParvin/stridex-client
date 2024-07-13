@@ -6,7 +6,9 @@ const FeaturedProducts = () => {
   const { data, error, isLoading } = useGetAllProductsQuery();
 
   console.log(data);
-  const products: TProduct[] = data?.data || [];
+  // const products: TProduct[] = data?.data || [];
+
+  const products: TProduct[] = (data?.data as TProduct[]) || [];
 
   const featuredProducts = [...products].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()

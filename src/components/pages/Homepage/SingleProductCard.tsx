@@ -55,7 +55,6 @@ const SingleProductCard = ({ product }: { product: TProduct }) => {
         <div className="flex justify-between items-center">
           <h3 className="text-xl font-semibold">{name}</h3>
           <Rating
-            className="text-sm"
             emptySymbol={<FontAwesomeIcon icon={faStar} color="#ddd" />}
             fullSymbol={<FontAwesomeIcon icon={faStar} color="#ffb400" />}
             initialRating={rating}

@@ -34,32 +34,12 @@ const MainLayout = () => {
     };
   }, [location.pathname]);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const navbar = document.querySelector(".navbar");
-  //     if (window.scrollY > 50) {
-  //       navbar.classList.add("bg-black");
-  //     } else {
-  //       navbar.classList.remove("bg-black");
-  //     }
-  //   };
-
-  //   if (location.pathname !== "/") {
-  //     const navbar = document.querySelector(".navbar");
-  //     navbar.classList.add("bg-black");
-  //   } else {
-  //     window.addEventListener("scroll", handleScroll);
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [location.pathname]);
-
   return (
     <>
       <Navbar />
-      <Outlet></Outlet>
+      <div className="min-h-screen">
+        <Outlet></Outlet>
+      </div>
       <Footer />
     </>
   );

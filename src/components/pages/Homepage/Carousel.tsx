@@ -44,11 +44,7 @@ const Carousel = () => {
           <SwiperSlide key={index}>
             <div className="relative w-full h-screen ">
               {/* <div> */}
-              <img
-                src={slide.image}
-                alt={slide.caption}
-                className="w-full h-full object-cover"
-              />
+              <img src={slide.image} className="w-full h-full object-cover" />
 
               <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center text-white ">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl  font-bold mb-4 mt-36">

@@ -236,7 +236,6 @@ import { TProduct } from "@/types";
 import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
 import SingleProduct from "./SingleProduct";
 import { Spinner } from "@/components/ui/spinner";
-import AlertDestructive from "@/components/ui/alert";
 import { useLocation } from "react-router-dom";
 
 const AllProducts = () => {
@@ -257,7 +256,7 @@ const AllProducts = () => {
   const [sortOrder, setSortOrder] = useState("");
 
   const { data, error, isLoading } = useGetAllProductsQuery();
-  const products: TProduct[] = data?.data || [];
+  const products: TProduct[] = (data?.data as TProduct[]) || [];
 
   useEffect(() => {
     setFilters((prevFilters) => ({
@@ -436,13 +435,38 @@ const AllProducts = () => {
               </div>
             </div>
 
-            {isLoading ? (
+            {/* {isLoading ? (
               <div className="flex justify-center items-center py-6">
                 <Spinner />
               </div>
             ) : error ? (
               <div className="flex justify-center items-center py-6">
                 <AlertDestructive message="There was an error loading the products. Please try again later." />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 pb-6">
+                {filteredProducts.map((product) => (
+                  <SingleProduct key={product._id} product={product} />
+                ))}
+              </div>
+            )} */}
+
+            {isLoading ? (
+              <div className="flex justify-center items-center py-6">
+                <Spinner />
+              </div>
+            ) : error ? (
+              <div className="flex justify-center items-center py-6">
+                <div
+                  className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  <strong className="font-bold">Error: </strong>
+                  <span className="block sm:inline">
+                    There was an error loading the products. Please try again
+                    later.
+                  </span>
+                </div>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 pb-6">

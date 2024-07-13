@@ -12,6 +12,9 @@ import ContactUs from "../components/pages/Homepage/ContactUs";
 import AllProducts from "@/components/pages/AllProducts/AllProducts";
 import ProductDetails from "@/components/pages/AllProducts/ProductDetails";
 import Cart from "@/components/pages/cart/Cart";
+import CheckOut from "@/components/pages/cart/CheckOut";
+import Success from "@/components/pages/cart/Success";
+import ManageProducts from "@/components/pages/ManageProducts/ManageProducts";
 
 const router = createBrowserRouter([
   {
@@ -52,18 +55,22 @@ const router = createBrowserRouter([
         path: "products/:id",
         element: <ProductDetails />,
       },
-      // {
-      //   path: "manage",
-      //   element: <ManageProducts />,
-      // },
+      {
+        path: "manageProducts",
+        element: <ManageProducts />,
+      },
       {
         path: "cart",
         element: <Cart />,
       },
-      // {
-      //   path: "checkout",
-      //   element: <Checkout />,
-      // },
+      {
+        path: "checkout",
+        element: <CheckOut />,
+      },
+      {
+        path: "success",
+        element: <Success />,
+      },
     ],
   },
 ]);

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingCart,
-  faUser,
   faBars,
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
@@ -33,10 +32,17 @@ const Navbar = () => {
   );
 
   return (
-    // <nav className="navbar fixed w-full z-10 top-0 pt-4 pb-2 text-white transition-colors duration-300 tracking-wider">
+    // <nav className="navbar fixed w-full z-10 top-0 pt-4 pb-2 text-white transition-colors duration-300 tracking-wider bg-gray-900">
     //   <div className="w-full lg:w-11/12 mx-auto px-4 flex justify-between items-center h-16">
     //     <div className="md:hidden flex items-center space-x-4">
-    //       <FontAwesomeIcon icon={faShoppingCart} />
+    //       <Link to="/cart" className="relative">
+    //         <FontAwesomeIcon icon={faShoppingCart} className="text-white" />
+    //         {cartItemCount > 0 && (
+    //           <span className="absolute bottom-4 left-3 mt-1 mr-1 bg-red-600 rounded-full w-4 h-4 text-xs flex items-center justify-center text-white">
+    //             {cartItemCount}
+    //           </span>
+    //         )}
+    //       </Link>
     //     </div>
     //     <div className="flex-1 flex justify-center md:justify-start">
     //       <Link to="/" className="text-4xl font-bold italic">
@@ -44,7 +50,7 @@ const Navbar = () => {
     //         <span className="text-red-700 font-extrabold text-5xl">X</span>
     //       </Link>
     //     </div>
-    //     <div className="hidden md:flex flex-1 items-center justify-center space-x-8 text-xl">
+    //     <div className="hidden md:flex flex-1 items-center justify-center space-x-5 text-xl">
     //       <Link to="/" className="hover:text-red-700 transition duration-300">
     //         Home
     //       </Link>
@@ -142,11 +148,18 @@ const Navbar = () => {
     //     </div>
     //     <div className="md:hidden flex items-center">
     //       <button onClick={toggleMenu}>
-    //         <FontAwesomeIcon icon={faBars} className="text-white" />
+    //         <FontAwesomeIcon icon={faBars} className="text-white " />
     //       </button>
     //     </div>
-    //     <div className="hidden md:flex items-center space-x-4">
-    //       <FontAwesomeIcon icon={faShoppingCart} className="text-white" />
+    //     <div className="hidden md:flex items-center relative">
+    //       <Link to="/cart" className="relative">
+    //         <FontAwesomeIcon icon={faShoppingCart} className="text-white" />
+    //         {cartItemCount > 0 && (
+    //           <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full w-4 h-4 text-xs flex items-center justify-center text-white">
+    //             {cartItemCount}
+    //           </span>
+    //         )}
+    //       </Link>
     //     </div>
     //   </div>
     //   {isOpen && (
@@ -260,11 +273,9 @@ const Navbar = () => {
         <div className="md:hidden flex items-center space-x-4">
           <Link to="/cart" className="relative">
             <FontAwesomeIcon icon={faShoppingCart} className="text-white" />
-            {cartItemCount > 0 && (
-              <span className="absolute bottom-4 left-3 mt-1 mr-1 bg-red-600 rounded-full w-4 h-4 text-xs flex items-center justify-center text-white">
-                {cartItemCount}
-              </span>
-            )}
+            <span className="absolute bottom-4 left-3 mt-1 mr-1 bg-red-600 rounded-full w-4 h-4 text-xs flex items-center justify-center text-white">
+              {cartItemCount}
+            </span>
           </Link>
         </div>
         <div className="flex-1 flex justify-center md:justify-start">
@@ -377,11 +388,9 @@ const Navbar = () => {
         <div className="hidden md:flex items-center relative">
           <Link to="/cart" className="relative">
             <FontAwesomeIcon icon={faShoppingCart} className="text-white" />
-            {cartItemCount > 0 && (
-              <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full w-4 h-4 text-xs flex items-center justify-center text-white">
-                {cartItemCount}
-              </span>
-            )}
+            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full w-4 h-4 text-xs flex items-center justify-center text-white">
+              {cartItemCount}
+            </span>
           </Link>
         </div>
       </div>
