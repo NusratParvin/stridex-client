@@ -3,25 +3,45 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Pagination, Autoplay, EffectFade } from "swiper/modules";
+import image1 from "@/assets/images/carousel/1.jpg";
+import image2 from "@/assets/images/carousel/2.jpg";
+import image3 from "@/assets/images/carousel/3.jpg";
 
 const Carousel = () => {
   const slides = [
     {
-      image: "/src/assets/images/carousel/1.jpg",
+      image: image1,
       info: "Your one-stop shop for sports goods",
       sale: "50% OFF on all items!",
     },
     {
-      image: "/src/assets/images/carousel/2.jpg",
+      image: image2,
       info: "Grab Yours Soon!",
       sale: "Buy 1 Get 1 Free!",
     },
     {
-      image: "/src/assets/images/carousel/3.jpg",
+      image: image3,
       info: "Hurry Before Its Gone",
       sale: "Summer Sale: Up to 70% OFF!",
     },
   ];
+  // const slides = [
+  //   {
+  //     image: "/src/assets/images/carousel/1.jpg",
+  //     info: "Your one-stop shop for sports goods",
+  //     sale: "50% OFF on all items!",
+  //   },
+  //   {
+  //     image: "/src/assets/images/carousel/2.jpg",
+  //     info: "Grab Yours Soon!",
+  //     sale: "Buy 1 Get 1 Free!",
+  //   },
+  //   {
+  //     image: "/src/assets/images/carousel/3.jpg",
+  //     info: "Hurry Before Its Gone",
+  //     sale: "Summer Sale: Up to 70% OFF!",
+  //   },
+  // ];
 
   return (
     <div>

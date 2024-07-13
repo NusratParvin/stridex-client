@@ -1,23 +1,24 @@
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { useAddProductMutation } from "@/redux/features/products/productsApi";
 import { toast } from "sonner";
+import { TProduct, TProductUpdated } from "@/types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useUpdateProductMutation } from "@/redux/features/products/productsApi";
 
-interface FormData {
-  name: string;
-  category: string;
-  stockQuantity: number;
-  brand: string;
-  rating: number;
-  description: string;
-  price: number;
-  image: string;
+interface UpdateProductProps {
+  onClose: () => void;
+  productData: TProduct;
 }
 
-const AddProduct = ({ onClose }: any) => {
-  const [addProduct] = useAddProductMutation();
-  const methods = useForm<FormData>({
-    mode: "onChange",
+const UpdateProduct: React.FC<UpdateProductProps> = ({
+  onClose,
+  productData,
+}) => {
+  const [updateProduct] = useUpdateProductMutation();
+  const methods = useForm<TProduct>({
+    defaultValues: productData,
   });
+
   const {
     register,
     handleSubmit,
@@ -37,27 +38,50 @@ const AddProduct = ({ onClose }: any) => {
     return pattern.test(value) || "Invalid URL format";
   };
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit: SubmitHandler<TProduct> = async (data) => {
+    const {
+      name,
+      category,
+      stockQuantity,
+      brand,
+      rating,
+      description,
+      price,
+      image,
+    } = data;
+    const cleanedData: TProductUpdated = {
+      name,
+      category,
+      stockQuantity,
+      brand,
+      rating,
+      description,
+      price,
+      image,
+    };
+
     try {
-      console.log(data);
-      await addProduct(data).unwrap();
-      toast.success("Product added successfully");
+      console.log(cleanedData);
+      await updateProduct({ id: productData._id, ...cleanedData }).unwrap();
+      toast.success("Product updated successfully");
       onClose();
     } catch (error: any) {
-      if (error.status === 400) {
-        toast.error("Failed to add product: Invalid input data");
-      } else {
-        toast.error("Failed to add product");
-      }
+      toast.error("Failed to update product");
     }
   };
 
   return (
     <FormProvider {...methods}>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-        <div className="bg-white p-8 w-11/12 md:w-1/2 max-h-[90vh] overflow-y-auto">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="bg-white p-8 rounded-lg w-11/12 md:w-1/2 max-h-[90vh] overflow-y-auto relative">
+          <button
+            className="absolute top-4 right-4 text-gray-700 hover:text-gray-900"
+            onClick={onClose}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
           <h2 className="text-lg font-semibold text-gray-700">
-            Add New Product
+            Update Product
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
             <div>
@@ -70,7 +94,7 @@ const AddProduct = ({ onClose }: any) => {
                 className="block text-gray-700 w-full border border-gray-300 p-1 text-base"
               />
               {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name.message}</p>
+                <p className="text-red-500 text-sm">{errors.name?.message}</p>
               )}
             </div>
             <div className="flex flex-col md:flex-row md:space-x-4">
@@ -84,7 +108,9 @@ const AddProduct = ({ onClose }: any) => {
                   className="block text-gray-700 w-full border border-gray-300 p-1 text-base"
                 />
                 {errors.brand && (
-                  <p className="text-red-500 text-sm">{errors.brand.message}</p>
+                  <p className="text-red-500 text-sm">
+                    {errors.brand?.message}
+                  </p>
                 )}
               </div>
               <div className="flex-1">
@@ -105,7 +131,7 @@ const AddProduct = ({ onClose }: any) => {
                 </select>
                 {errors.category && (
                   <p className="text-red-500 text-sm">
-                    {errors.category.message}
+                    {errors.category?.message}
                   </p>
                 )}
               </div>
@@ -125,7 +151,9 @@ const AddProduct = ({ onClose }: any) => {
                   className="block text-gray-700 w-full border border-gray-300 p-1 text-base"
                 />
                 {errors.price && (
-                  <p className="text-red-500 text-sm">{errors.price.message}</p>
+                  <p className="text-red-500 text-sm">
+                    {errors.price?.message}
+                  </p>
                 )}
               </div>
               <div className="flex-1">
@@ -146,7 +174,7 @@ const AddProduct = ({ onClose }: any) => {
                 />
                 {errors.stockQuantity && (
                   <p className="text-red-500 text-sm">
-                    {errors.stockQuantity.message}
+                    {errors.stockQuantity?.message}
                   </p>
                 )}
               </div>
@@ -167,7 +195,7 @@ const AddProduct = ({ onClose }: any) => {
                 />
                 {errors.rating && (
                   <p className="text-red-500 text-sm">
-                    {errors.rating.message}
+                    {errors.rating?.message}
                   </p>
                 )}
               </div>
@@ -185,7 +213,7 @@ const AddProduct = ({ onClose }: any) => {
                 className="block text-gray-700 w-full border border-gray-300 p-1 text-base"
               />
               {errors.image && (
-                <p className="text-red-500 text-sm">{errors.image.message}</p>
+                <p className="text-red-500 text-sm">{errors.image?.message}</p>
               )}
             </div>
             <div>
@@ -200,23 +228,23 @@ const AddProduct = ({ onClose }: any) => {
               />
               {errors.description && (
                 <p className="text-red-500 text-sm">
-                  {errors.description.message}
+                  {errors.description?.message}
                 </p>
               )}
             </div>
-            <div className="flex justify-end font-semibold">
+            <div className="flex justify-end">
               <button
                 type="button"
                 onClick={onClose}
-                className="mr-2 bg-gray-400 text-gray-700 px-4 py-2  "
+                className="mr-2 bg-gray-300 text-gray-700 px-4 py-2  "
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="bg-red-700 text-white px-4 py-2  "
+                className="bg-red-700 text-white px-4 py-2 hover:bg-red-800"
               >
-                Add Product
+                Update Product
               </button>
             </div>
           </form>
@@ -226,4 +254,4 @@ const AddProduct = ({ onClose }: any) => {
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;

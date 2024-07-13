@@ -1,56 +1,6 @@
-//  import baseApi from "@/redux/api/baseApi";
-// import { TApiResponse } from "@/types";
-
-// const productsApi = baseApi.injectEndpoints({
-//   endpoints: (builder) => ({
-//     getAllProducts: builder.query<TApiResponse, void>({
-//       query: () => ({
-//         url: "/products",
-//         method: "GET",
-//       }),
-//       providesTags: ["Products"],
-//     }),
-//     getProductById: builder.query({
-//       query: (id) => ({
-//         url: `/products/${id}`,
-//         method: "GET",
-//       }),
-//       providesTags: ["Products"],
-//     }),
-
-//   addProduct: builder.mutation<TProduct, Partial<TProduct>>({
-//     query: (newProduct) => ({
-//       url: 'products',
-//       method: 'POST',
-//       body: newProduct,
-//     }),
-//     invalidatesTags: ['Product'],
-//   }),
-
-//   deleteProduct: builder.mutation<{ success: boolean; id: string }, string>({
-//     query: (id) => ({
-//       url: `products/${id}`,
-//       method: 'DELETE',
-//     }),
-//     invalidatesTags: ['Product'],
-//   }),
-
-//   updateProduct: builder.mutation<TProduct, Partial<TProduct>>({
-//     query: ({ id, ...patch }) => ({
-//       url: `products/${id}`,
-//       method: 'PATCH',
-//       body: patch,
-//     }),
-//     invalidatesTags: ['Product'],
-//   }),
-
-//  });
-
-// export const { useGetAllProductsQuery, useGetProductByIdQuery } = productsApi;
-// export default productsApi;
-
 import baseApi from "@/redux/api/baseApi";
 import { TApiResponse } from "@/types";
+import { setProducts } from "./productSlice";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -59,6 +9,14 @@ const productsApi = baseApi.injectEndpoints({
         url: "/products",
         method: "GET",
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setProducts(data.data));
+        } catch (error) {
+          console.error("Failed to fetch products", error);
+        }
+      },
       providesTags: ["Products"],
     }),
 
@@ -88,10 +46,31 @@ const productsApi = baseApi.injectEndpoints({
     }),
 
     updateProduct: builder.mutation({
-      query: ({ id, ...patch }) => ({
+      query: ({ id, ...updatedData }) => ({
         url: `products/${id}`,
-        method: "PATCH",
-        body: patch,
+        method: "PUT",
+        body: updatedData,
+      }),
+      invalidatesTags: ["Products"],
+    }),
+
+    // updateProductStock: builder.mutation({
+    //   query: ({ id, stockQuantity }) => ({
+    //     url: `products/${id}`,
+    //     method: "PUT",
+    //     body: { stockQuantity },
+    //   }),
+    //   invalidatesTags: ["Products"],
+    // }),
+
+    updateProductStock: builder.mutation<
+      void,
+      { id: string; stockQuantity: number }
+    >({
+      query: ({ id, stockQuantity }) => ({
+        url: `products/${id}/stock`,
+        method: "PUT",
+        body: { stockQuantity },
       }),
       invalidatesTags: ["Products"],
     }),
@@ -104,6 +83,7 @@ export const {
   useAddProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useUpdateProductStockMutation,
 } = productsApi;
 
 export default productsApi;

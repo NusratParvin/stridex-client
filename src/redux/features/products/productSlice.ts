@@ -22,7 +22,8 @@ const productsSlice = createSlice({
         (product) => product._id === action.payload.productId
       );
       if (product) {
-        product.stockQuantity = product.stockQuantity - action.payload.quantity;
+        product.stockQuantity -= action.payload.quantity;
+        console.log(product.stockQuantity);
       }
     },
   },

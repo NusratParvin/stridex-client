@@ -1,228 +1,3 @@
-// import { useState } from "react";
-// import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-// import { useNavigate } from "react-router-dom";
-// import { clearCart } from "@/redux/features/cart/cartSlice";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faTruck } from "@fortawesome/free-solid-svg-icons";
-// import { updateProductStock } from "@/redux/features/products/productSlice";
-
-// const CheckOut = () => {
-//   const [userDetails, setUserDetails] = useState({
-//     name: "",
-//     email: "",
-//     phone: "",
-//     address: "",
-//   });
-
-//   const cartItems = useAppSelector((state) => state.cart.items);
-//   const dispatch = useAppDispatch();
-//   const navigate = useNavigate();
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setUserDetails((prevDetails) => ({
-//       ...prevDetails,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handlePlaceOrder = () => {
-//     cartItems.forEach((item) => {
-//       dispatch(
-//         updateProductStock({
-//           productId: item.productInfo._id,
-//           quantity: item.quantity,
-//         })
-//       );
-//     });
-//     console.log(userDetails);
-//     dispatch(clearCart());
-//     navigate("/success");
-//   };
-
-//   const subtotal = cartItems.reduce(
-//     (total, item) => total + item.productInfo.price * item.quantity,
-//     0
-//   );
-//   const vat = subtotal * 0.15;
-//   const shipping = 4.99;
-//   const total = subtotal + vat + shipping;
-
-//   return (
-//     <div className="w-11/12 mx-auto py-24">
-//       <div className="grid sm:px-10 lg:grid-cols-2 pt-8 lg:px-20 xl:px-32">
-//         <div className="px-4 pt-8">
-//           <p className="text-xl font-medium">Order Summary</p>
-
-//           <div className="mt-8 space-y-3 border bg-white px-2 py-4 sm:px-6">
-//             {cartItems.map((item) => (
-//               <div
-//                 key={item.productInfo._id}
-//                 className="flex flex-col rounded-lg bg-white sm:flex-row"
-//               >
-//                 <img
-//                   className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-//                   src={item.productInfo.image}
-//                 />
-//                 <div className="flex w-full flex-col px-4 py-4">
-//                   <span className="font-semibold">{item.productInfo.name}</span>
-//                   <span className="float-right text-gray-400">
-//                     {item.productInfo.category}
-//                   </span>
-//                   <p className="text-lg font-bold">
-//                     ${item.productInfo.price.toFixed(2)}
-//                   </p>
-//                   <p className="text-sm text-gray-400">
-//                     Quantity: {item.quantity}
-//                   </p>
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-
-//           <p className="mt-8 text-lg font-medium">Shipping Methods</p>
-//           <form className="mt-5 grid gap-6">
-//             <div className="relative">
-//               <label className="   bg-gray-100 flex p-4">
-//                 <FontAwesomeIcon
-//                   icon={faTruck}
-//                   className="w-14 object-contain"
-//                 />
-//                 <div className="ml-5">
-//                   <span className="mt-2 font-semibold">Cash On Delivery</span>
-//                   <p className="text-slate-500 text-sm leading-6">
-//                     Delivery: 2-4 Days
-//                   </p>
-//                 </div>
-//               </label>
-//             </div>
-//           </form>
-//         </div>
-
-//         <div className="mt-10 bg-gray-50 px-8 pt-8 lg:mt-0 ">
-//           <p className="text-xl font-medium">Customer Details</p>
-//           <p className="text-gray-400">
-//             Complete your order by providing your details.
-//           </p>
-
-//           <div className="mt-4">
-//             <label
-//               htmlFor="name"
-//               className="mt-4 mb-2 block text-sm font-medium"
-//             >
-//               Name
-//             </label>
-//             <div className="relative">
-//               <input
-//                 type="text"
-//                 id="name"
-//                 name="name"
-//                 className="w-full  border-gray-200 px-4 py-2 border pl-11 text-sm shadow-sm "
-//                 placeholder="Your full name"
-//                 value={userDetails.name}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <label
-//               htmlFor="email"
-//               className="mt-4 mb-2 block text-sm font-medium"
-//             >
-//               Email
-//             </label>
-//             <div className="relative">
-//               <input
-//                 type="email"
-//                 id="email"
-//                 name="email"
-//                 className="w-full  border-gray-200 px-4 py-2 border pl-11 text-sm shadow-sm "
-//                 placeholder="your.email@gmail.com"
-//                 value={userDetails.email}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <label
-//               htmlFor="phone"
-//               className="mt-4 mb-2 block text-sm font-medium"
-//             >
-//               Phone
-//             </label>
-//             <div className="relative">
-//               <input
-//                 type="text"
-//                 id="phone"
-//                 name="phone"
-//                 className="w-full  border-gray-200 px-4 py-2 border pl-11 text-sm shadow-sm "
-//                 placeholder="Your phone number"
-//                 value={userDetails.phone}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-//             <label
-//               htmlFor="address"
-//               className="mt-4 mb-2 block text-sm font-medium"
-//             >
-//               Address
-//             </label>
-//             <div className="relative">
-//               <input
-//                 type="text"
-//                 id="address"
-//                 name="address"
-//                 className="w-full  border-gray-200 px-4 py-2 border pl-11 text-sm shadow-sm "
-//                 placeholder="Your delivery address"
-//                 value={userDetails.address}
-//                 onChange={handleInputChange}
-//               />
-//             </div>
-
-//             <div className="mt-6 border-t border-b py-2">
-//               <div className="flex items-center justify-between">
-//                 <p className="text-sm font-medium text-gray-900">Subtotal</p>
-//                 <p className="font-semibold text-gray-900">
-//                   ${subtotal.toFixed(2)}
-//                 </p>
-//               </div>
-//               <div className="flex items-center justify-between">
-//                 <p className="text-sm font-medium text-gray-900">VAT (15%)</p>
-//                 <p className="font-semibold text-gray-900">${vat.toFixed(2)}</p>
-//               </div>
-//               <div className="flex items-center justify-between">
-//                 <p className="text-sm font-medium text-gray-900">Shipping</p>
-//                 <p className="font-semibold text-gray-900">
-//                   ${shipping.toFixed(2)}
-//                 </p>
-//               </div>
-//             </div>
-//             <div className="mt-6 flex items-center justify-between">
-//               <p className="text-sm font-medium text-gray-900">Total</p>
-//               <p className="text-2xl font-semibold text-gray-900">
-//                 ${total.toFixed(2)}
-//               </p>
-//             </div>
-
-//             <button
-//               onClick={handlePlaceOrder}
-//               className="mt-4 mb-8 w-full   bg-red-700 px-6 py-3 font-medium text-white"
-//               disabled={
-//                 !userDetails.name ||
-//                 !userDetails.email ||
-//                 !userDetails.phone ||
-//                 !userDetails.address
-//               }
-//             >
-//               Place Order
-//             </button>
-//           </div>
-
-//         </div>
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CheckOut;
-
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -230,6 +5,7 @@ import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { updateProductStock } from "@/redux/features/products/productSlice";
 import { useForm } from "react-hook-form";
 import { clearCart } from "@/redux/features/cart/cartSlice";
+import { useUpdateProductStockMutation } from "@/redux/features/products/productsApi";
 
 const CheckOut = () => {
   const {
@@ -239,20 +15,36 @@ const CheckOut = () => {
   } = useForm();
   const cartItems = useAppSelector((state) => state.cart.items);
   const dispatch = useAppDispatch();
+  const [updateProductStockApi] = useUpdateProductStockMutation();
+
   const navigate = useNavigate();
 
-  const onSubmit = (data: any) => {
-    cartItems.forEach((item) => {
-      dispatch(
-        updateProductStock({
-          productId: item.productInfo._id,
-          quantity: item.quantity,
-        })
+  const onSubmit = async (data: any) => {
+    try {
+      console.log(data);
+      // reduction in db
+      await cartItems.map((item) =>
+        updateProductStockApi({
+          id: item.productInfo._id,
+          stockQuantity: item.productInfo.stockQuantity - item.quantity,
+        }).unwrap()
       );
-    });
-    console.log(data);
-    dispatch(clearCart());
-    navigate("/success");
+
+      // reduction in store
+      cartItems.forEach((item) => {
+        dispatch(
+          updateProductStock({
+            productId: item.productInfo._id,
+            quantity: item.quantity,
+          })
+        );
+      });
+
+      dispatch(clearCart());
+      navigate("/success");
+    } catch (error) {
+      console.error("Failed to place order", error);
+    }
   };
 
   const subtotal = cartItems.reduce(

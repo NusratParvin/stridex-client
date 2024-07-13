@@ -1,29 +1,30 @@
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+import footwearImage from "@/assets/images/products/footwear/shoes.jpg";
+import apparelImage from "@/assets/images/products/apparel/apparel.jpg";
+import equipmentImage from "@/assets/images/products/equipment/treadmill.jpg";
+import accessoriesImage from "@/assets/images/products/accessories/tracker.jpg";
 
 const categories = [
   {
     id: 1,
     name: "Footwear",
-    image: "/src/assets/images/products/footwear/shoes.jpg",
-    // link: "/allProducts?category=shoes",
+    image: footwearImage,
   },
   {
     id: 2,
     name: "Apparel",
-    image: "/src/assets/images/products/apparel/apparel.jpg",
-    // link: "/allProducts?category=apparel",
+    image: apparelImage,
   },
   {
     id: 3,
     name: "Equipment",
-    image: "/src/assets/images/products/equipment/treadmill.jpg",
-    // link: "/allProducts?category=equipment",
+    image: equipmentImage,
   },
   {
     id: 4,
     name: "Accessories",
-    image: "/src/assets/images/products/accessories/tracker.jpg",
+    image: accessoriesImage,
     // link: "/allProducts?category=accessories",
   },
 ];
